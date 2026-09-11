@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project Gallery &amp; Case Studies · Urban Cab</title>
+  <title>Gallery · Urban Cab Portable Cabins</title>
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
@@ -232,15 +232,10 @@
     }
 
     /* ========================================
-       SECTIONS
+       GALLERY SECTION
     ======================================== */
-    section {
+    .gallery-section {
       padding: 3.5rem 0;
-      border-bottom: 1px solid #e2edf5;
-    }
-
-    section:last-of-type {
-      border-bottom: none;
     }
 
     .section-title {
@@ -300,179 +295,230 @@
     }
 
     /* ========================================
-       PROJECT CARDS
+       GALLERY GRID
     ======================================== */
-    .project-grid {
+    .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      margin-top: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
     }
 
-    .project-card {
-      background: white;
-      border-radius: 24px;
-      padding: 1.8rem 1.5rem;
+    .gallery-item {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 4/3;
+      background: #eaf2f8;
       border: 1px solid #e3eef5;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-      transition: 0.3s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      transition: 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0, 20, 30, 0.12);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .gallery-item .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(11, 42, 53, 0.9) 0%, rgba(11, 42, 53, 0.2) 50%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
       display: flex;
       flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.2rem;
     }
 
-    .project-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 28px rgba(0, 20, 30, 0.06);
+    .gallery-item:hover .overlay {
+      opacity: 1;
     }
 
-    .project-card .icon {
-      font-size: 2rem;
-      color: #f5c542;
-      margin-bottom: 0.5rem;
+    .gallery-item .overlay h3 {
+      color: white;
+      font-size: 1.1rem;
+      margin-bottom: 0.2rem;
+      transform: translateY(10px);
+      transition: transform 0.3s ease;
     }
 
-    .project-card h3 {
+    .gallery-item .overlay p {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.85rem;
+      transform: translateY(10px);
+      transition: transform 0.3s ease 0.05s;
+    }
+
+    .gallery-item:hover .overlay h3,
+    .gallery-item:hover .overlay p {
+      transform: translateY(0);
+    }
+
+    .gallery-item .category-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: #f5c542;
       color: #0b2a35;
-      margin-bottom: 0.3rem;
-      font-size: 1.2rem;
-    }
-
-    .project-card .location {
-      font-weight: 600;
-      color: #1a4f60;
-      font-size: 0.9rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .project-card .location i {
-      color: #f5c542;
-      margin-right: 4px;
-    }
-
-    .project-card .badge {
-      display: inline-block;
-      background: #eaf2f8;
+      padding: 0.2rem 0.8rem;
       border-radius: 30px;
-      padding: 0.2rem 1rem;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 600;
+      z-index: 2;
+    }
+
+    .gallery-item .zoom-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      width: 50px;
+      height: 50px;
+      background: rgba(245, 197, 66, 0.95);
       color: #0b2a35;
-      margin: 0.3rem 0.2rem 0.3rem 0;
-      align-self: flex-start;
-    }
-
-    .project-card ul {
-      list-style: none;
-      padding: 0;
-      margin-top: 0.5rem;
-      flex-grow: 1;
-    }
-
-    .project-card ul li {
-      font-size: 0.95rem;
-      padding: 0.15rem 0;
+      border-radius: 50%;
       display: flex;
-      align-items: flex-start;
-      gap: 6px;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      transition: transform 0.3s ease;
+      z-index: 2;
     }
 
-    .project-card ul li i {
-      color: #f5c542;
-      width: 18px;
-      margin-top: 0.1rem;
-    }
-
-    .project-card .utility-text {
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
-      color: #1d3e4b;
-      border-top: 1px solid #e8f0f5;
-      padding-top: 0.5rem;
-    }
-
-    .project-card .utility-text strong {
-      color: #0b2a35;
+    .gallery-item:hover .zoom-icon {
+      transform: translate(-50%, -50%) scale(1);
     }
 
     /* ========================================
-       CASE STUDY CARDS
+       LIGHTBOX MODAL
     ======================================== */
-    .case-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      margin-top: 1.5rem;
-    }
-
-    .case-card {
-      background: white;
-      border-radius: 28px;
-      padding: 2rem;
-      border: 1px solid #e3eef5;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03);
-      transition: 0.3s;
-    }
-
-    .case-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 28px rgba(0, 20, 30, 0.06);
-    }
-
-    .case-card h3 {
-      color: #0b2a35;
-      font-size: 1.3rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .case-card .case-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem 1.5rem;
-      background: #f8fcff;
-      padding: 0.8rem 1rem;
-      border-radius: 16px;
-      margin: 0.8rem 0;
-      font-size: 0.9rem;
-      border-left: 4px solid #f5c542;
-    }
-
-    .case-card .case-meta span {
-      display: inline-flex;
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(11, 42, 53, 0.95);
+      z-index: 1000;
+      justify-content: center;
       align-items: center;
-      gap: 4px;
+      padding: 2rem;
+      animation: fadeIn 0.3s ease;
     }
 
-    .case-card .case-meta span i {
-      color: #f5c542;
+    .lightbox.active {
+      display: flex;
     }
 
-    .case-card .challenge-solution {
-      margin-top: 0.8rem;
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
-    .case-card .challenge-solution p {
-      margin-bottom: 0.4rem;
-      font-size: 0.95rem;
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      animation: zoomIn 0.3s ease;
     }
 
-    .case-card .challenge-solution strong {
+    @keyframes zoomIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 85vh;
+      display: block;
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -50px;
+      right: 0;
+      background: #f5c542;
       color: #0b2a35;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
     }
 
-    .case-card .result-badge {
-      display: inline-block;
-      background: #0b2a35;
+    .lightbox-close:hover {
+      background: #e0b032;
+      transform: rotate(90deg);
+    }
+
+    .lightbox-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(11, 42, 53, 0.95), transparent);
       color: white;
-      padding: 0.3rem 1.2rem;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      margin-top: 0.8rem;
+      padding: 2rem 1.5rem 1.2rem;
+      font-size: 1rem;
+      text-align: center;
     }
 
-    .case-card .result-badge i {
-      color: #f5c542;
-      margin-right: 6px;
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(245, 197, 66, 0.9);
+      color: #0b2a35;
+      border: none;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+    }
+
+    .lightbox-nav:hover {
+      background: #f5c542;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .lightbox-prev {
+      left: 15px;
+    }
+
+    .lightbox-next {
+      right: 15px;
     }
 
     /* ========================================
@@ -488,7 +534,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 1.5rem;
-      margin-top: 2.5rem;
+      margin-top: 3rem;
     }
 
     .cta-strip .info {
@@ -665,12 +711,10 @@
         font-size: 0.8rem;
       }
 
-      /* Show hamburger on tablet/mobile */
       .hamburger {
         display: flex;
       }
 
-      /* Hide nav links by default on mobile */
       .nav-links {
         display: none;
         flex-direction: column;
@@ -718,8 +762,9 @@
         font-size: 1rem;
       }
 
-      .case-grid {
-        grid-template-columns: 1fr;
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1rem;
       }
 
       .cta-strip {
@@ -745,22 +790,23 @@
         margin: 0 0.5rem;
       }
 
-      .project-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 1.2rem;
-      }
-
-      .filter-bar {
-        gap: 0.5rem;
-      }
-
-      .filter-chip {
-        font-size: 0.8rem;
-        padding: 0.3rem 0.8rem;
-      }
-
       .logo-img {
         height: 35px;
+      }
+
+      .lightbox {
+        padding: 1rem;
+      }
+
+      .lightbox-close {
+        top: 10px;
+        right: 10px;
+      }
+
+      .lightbox-nav {
+        width: 38px;
+        height: 38px;
+        font-size: 1.1rem;
       }
     }
 
@@ -794,14 +840,22 @@
         font-size: 1.6rem;
       }
 
-      .project-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
       }
 
-      .case-grid {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
+      .gallery-item .overlay h3 {
+        font-size: 0.9rem;
+      }
+
+      .gallery-item .overlay p {
+        font-size: 0.75rem;
+      }
+
+      .gallery-item .category-tag {
+        font-size: 0.6rem;
+        padding: 0.15rem 0.6rem;
       }
 
       .footer-grid {
@@ -813,19 +867,6 @@
         justify-content: center;
       }
 
-      .project-card {
-        padding: 1.2rem;
-      }
-
-      .case-card {
-        padding: 1.2rem;
-      }
-
-      .case-card .case-meta {
-        flex-direction: column;
-        gap: 0.3rem;
-      }
-
       .cta-strip {
         padding: 1.2rem 1.5rem;
       }
@@ -835,14 +876,19 @@
         text-align: center;
       }
 
+      .cta-btn {
+        padding: 0.4rem 1rem !important;
+        font-size: 0.85rem !important;
+      }
+
       .filter-chip {
         font-size: 0.75rem;
         padding: 0.25rem 0.7rem;
       }
 
-      .cta-btn {
-        padding: 0.4rem 1rem !important;
-        font-size: 0.85rem !important;
+      .lightbox-caption {
+        font-size: 0.85rem;
+        padding: 1.5rem 1rem 1rem;
       }
     }
 
@@ -878,42 +924,41 @@
       }
     }
 
-    .project-card {
+    .gallery-item {
       animation: fadeInUp 0.4s ease forwards;
     }
 
-    .project-card:nth-child(2) {
-      animation-delay: 0.1s;
-    }
-    .project-card:nth-child(3) {
-      animation-delay: 0.2s;
-    }
-    .project-card:nth-child(4) {
-      animation-delay: 0.3s;
+    .gallery-item:nth-child(2) { animation-delay: 0.05s; }
+    .gallery-item:nth-child(3) { animation-delay: 0.1s; }
+    .gallery-item:nth-child(4) { animation-delay: 0.15s; }
+    .gallery-item:nth-child(5) { animation-delay: 0.2s; }
+    .gallery-item:nth-child(6) { animation-delay: 0.25s; }
+    .gallery-item:nth-child(7) { animation-delay: 0.3s; }
+    .gallery-item:nth-child(8) { animation-delay: 0.35s; }
+    .gallery-item:nth-child(9) { animation-delay: 0.4s; }
+    .gallery-item:nth-child(10) { animation-delay: 0.45s; }
+    .gallery-item:nth-child(11) { animation-delay: 0.5s; }
+    .gallery-item:nth-child(12) { animation-delay: 0.55s; }
+
+    /* ========================================
+       NO RESULTS MESSAGE
+    ======================================== */
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #2d5b6b;
     }
 
-    .case-card {
-      animation: fadeInUp 0.4s ease forwards;
+    .no-results i {
+      font-size: 3rem;
+      color: #d4e0e8;
+      margin-bottom: 1rem;
+      display: block;
     }
 
-    .case-card:nth-child(2) {
-      animation-delay: 0.1s;
-    }
-
-    .filter-chip {
-      animation: fadeInUp 0.3s ease forwards;
-    }
-    .filter-chip:nth-child(2) {
-      animation-delay: 0.05s;
-    }
-    .filter-chip:nth-child(3) {
-      animation-delay: 0.1s;
-    }
-    .filter-chip:nth-child(4) {
-      animation-delay: 0.15s;
-    }
-    .filter-chip:nth-child(5) {
-      animation-delay: 0.2s;
+    .no-results.show {
+      display: block;
     }
   </style>
 </head>
@@ -952,14 +997,14 @@
       </button>
 
       <ul class="nav-links" id="navLinks">
-  <li><a href="index.html">Home</a></li>
-  <li><a href="aboutus.html">About</a></li>
-  <li><a href="product.html">Products</a></li>
-  <li><a href="project.html" class="active">Projects</a></li>
-  <li><a href="gallery.html">Gallery</a></li>  <!-- NEW -->
-  <li><a href="faq.html">FAQ</a></li>
-  <li><a href="contact.html" class="cta-btn"><i class="fas fa-paper-plane"></i> Get Instant Quote</a></li>
-</ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="aboutus.html">About</a></li>
+        <li><a href="product.html">Products</a></li>
+        <li><a href="project.html">Projects</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html" class="cta-btn"><i class="fas fa-paper-plane"></i> Get Instant Quote</a></li>
+      </ul>
     </div>
   </nav>
 
@@ -967,129 +1012,172 @@
   <div class="page-hero">
     <div class="page-hero-bg"></div>
     <div class="container">
-      <h1>Project Gallery &amp; <span>Case Studies</span></h1>
-      <p class="subhead">Explore our portfolio of delivered projects across Maharashtra and neighboring regions. From heavy-duty site offices on major infrastructure corridors to custom-modified shipping containers for commercial use, examine the structural quality and finishes executed at our Kalyan Phata manufacturing yard.</p>
+      <h1>Our <span>Gallery</span></h1>
+      <p class="subhead">Explore our completed projects, portable cabins, bunkhouses, cafe cabins, farm house cabins, and custom container solutions. All manufactured at our Kalyan Phata, Thane facility.</p>
     </div>
   </div>
 
-  <!-- ===== FILTERABLE GALLERY ===== -->
-  <section id="gallery">
+  <!-- ===== GALLERY SECTION ===== -->
+  <section class="gallery-section">
     <div class="container">
-      <!-- <h2 class="section-title"><i class="fas fa-images"></i> Filterable Project Gallery</h2>
+      <h2 class="section-title"><i class="fas fa-images"></i> Project Gallery</h2>
+      <p class="section-sub">Click on any image to view it in full size.</p>
+
+      <!-- Filter Bar -->
       <div class="filter-bar">
-        <span class="filter-chip active">All Projects</span>
-        <span class="filter-chip">Office Cabins</span>
-        <span class="filter-chip">Bunkhouses &amp; Accommodation</span>
-        <span class="filter-chip">Modified Containers</span>
-        <span class="filter-chip">Custom &amp; Multi-Story</span>
-      </div> -->
-
-      <div class="project-grid">
-        <!-- 1 -->
-        <div class="project-card">
-          <div class="icon"><i class="fas fa-building"></i></div>
-          <h3>Executive Site Office (30' x 10')</h3>
-          <div class="location"><i class="fas fa-map-pin"></i> Infrastructure Project Site, Navi Mumbai</div>
-          <span class="badge">Office Cabins</span>
-          <ul>
-            <li><i class="fas fa-check"></i> Thermally insulated PUF wall panels</li>
-            <li><i class="fas fa-check"></i> Modular ceiling with recessed LED panel lights</li>
-            <li><i class="fas fa-check"></i> Attached toilet module</li>
-            <li><i class="fas fa-check"></i> Double-glazed aluminum sliding windows</li>
-            <li><i class="fas fa-check"></i> Anti-skid PVC flooring</li>
-          </ul>
-          <div class="utility-text"><strong>Utility:</strong> On-site project manager office and client meeting room.</div>
-        </div>
-
-        <!-- 2 -->
-        <div class="project-card">
-          <div class="icon"><i class="fas fa-bed"></i></div>
-          <h3>Multi-Bed Staff Bunkhouse (40' x 10')</h3>
-          <div class="location"><i class="fas fa-map-pin"></i> Industrial Facility, Taloja MIDC</div>
-          <span class="badge">Bunkhouses &amp; Accommodation</span>
-          <ul>
-            <li><i class="fas fa-check"></i> High-density EPS insulation for heat reduction</li>
-            <li><i class="fas fa-check"></i> Heavy-duty floor load distribution</li>
-            <li><i class="fas fa-check"></i> Integrated locker provisions</li>
-            <li><i class="fas fa-check"></i> Pre-wired socket points per bed station</li>
-            <li><i class="fas fa-check"></i> Cross-ventilation windows with security bars</li>
-          </ul>
-          <div class="utility-text"><strong>Utility:</strong> On-site overnight housing for engineering personnel.</div>
-        </div>
-
-        <!-- 3 -->
-        <div class="project-card">
-          <div class="icon"><i class="fas fa-shield-alt"></i></div>
-          <h3>Customized Security &amp; Toll Checkpost (10' x 10')</h3>
-          <div class="location"><i class="fas fa-map-pin"></i> Commercial Complex, Thane</div>
-          <span class="badge">Custom &amp; Multi-Story</span>
-          <ul>
-            <li><i class="fas fa-check"></i> 360-degree glass visibility</li>
-            <li><i class="fas fa-check"></i> Outer canopy for weather protection</li>
-            <li><i class="fas fa-check"></i> Built-in writing counter</li>
-            <li><i class="fas fa-check"></i> Integrated main switchboard setup</li>
-          </ul>
-          <div class="utility-text"><strong>Utility:</strong> Guard room and perimeter access control point.</div>
-        </div>
-
-        <!-- 4 -->
-        <div class="project-card">
-          <div class="icon"><i class="fas fa-ship"></i></div>
-          <h3>Modified Shipping Container Office &amp; Storage (40' x 8')</h3>
-          <div class="location"><i class="fas fa-map-pin"></i> Mining Site, Raigad</div>
-          <span class="badge">Modified Containers</span>
-          <ul>
-            <li><i class="fas fa-check"></i> Original Corten steel body with rust-inhibitor PU finish</li>
-            <li><i class="fas fa-check"></i> Heavy-duty security lockboxes on container doors</li>
-            <li><i class="fas fa-check"></i> Partitioned 20' office / 20' equipment storage</li>
-          </ul>
-          <div class="utility-text"><strong>Utility:</strong> High-security remote site headquarters and tool shed.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== CASE STUDIES ===== -->
-  <section id="case-studies">
-    <div class="container">
-      <h2 class="section-title"><i class="fas fa-clipboard-list"></i> Featured Case Studies</h2>
-      <p class="section-sub">Real-world challenges solved with precision engineering and rapid fabrication.</p>
-
-      <div class="case-grid">
-        <!-- Case 1 -->
-        <div class="case-card">
-          <h3>🚧 Rapid Deployment Site Office for Highway Expansion Project</h3>
-          <div class="case-meta">
-            <span><i class="fas fa-user"></i> Civil Infrastructure Contractor</span>
-            <span><i class="fas fa-map-pin"></i> Mumbai - Goa Highway Stretch</span>
-            <span><i class="fas fa-ruler-combined"></i> 3 modules (30'x10' each)</span>
-            <span><i class="fas fa-clock"></i> 8 days fabrication · 1 day install</span>
-          </div>
-          <div class="challenge-solution">
-            <p><strong>The Challenge:</strong> Required an operational project control office on an active highway construction site with no fixed concrete foundation permitted and high summer heat exposure.</p>
-            <p><strong>Our Solution:</strong> Engineered three pre-wired, fully insulated portable cabins with reflective outer coatings and heavy steel corner castings for quick crane loading and unloading.</p>
-          </div>
-          <span class="result-badge"><i class="fas fa-check-circle"></i> Delivered ahead of schedule · Climate-controlled workspace for 15 engineers · Zero downtime during heavy rainfall</span>
-        </div>
-
-        <!-- Case 2 -->
-        <div class="case-card">
-          <h3>🔒 High-Security Storage &amp; Field Lab for Industrial Site</h3>
-          <div class="case-meta">
-            <span><i class="fas fa-user"></i> Chemical Processing Facility</span>
-            <span><i class="fas fa-map-pin"></i> Ambernath MIDC, Thane</span>
-            <span><i class="fas fa-ship"></i> 20' ISO Corten Container</span>
-            <span><i class="fas fa-clock"></i> 6 days from approval to delivery</span>
-          </div>
-          <div class="challenge-solution">
-            <p><strong>The Challenge:</strong> Needed an explosion-resistant, weather-sealed field testing unit located adjacent to industrial processing zones.</p>
-            <p><strong>Our Solution:</strong> Re-engineered a heavy Corten steel shipping container with fire-retardant internal wall lining, industrial-grade copper wiring, explosion-proof light fixtures, and a heavy-duty steel chequered floor plate.</p>
-          </div>
-          <span class="result-badge"><i class="fas fa-check-circle"></i> Secure, spill-proof testing room · Meets site safety compliance · Endures harsh industrial surroundings</span>
-        </div>
+        <span class="filter-chip active" data-filter="all">All Photos</span>
+        <span class="filter-chip" data-filter="office">Office Cabins</span>
+        <span class="filter-chip" data-filter="bunkhouse">Bunkhouses</span>
+        <span class="filter-chip" data-filter="cafe">Cafe &amp; Shop</span>
+        <span class="filter-chip" data-filter="farmhouse">Farm House</span>
+        <span class="filter-chip" data-filter="security">Security Cabins</span>
+        <span class="filter-chip" data-filter="container">Containers</span>
       </div>
 
-      <!-- CTA strip -->
+      <!-- Gallery Grid -->
+      <div class="gallery-grid" id="galleryGrid">
+
+        <!-- 1. Office Cabin -->
+        <div class="gallery-item" data-category="office">
+          <span class="category-tag">Office Cabin</span>
+          <img src="gallery/office.jpg" alt="Executive Portable Office Cabin" onerror="this.src='https://via.placeholder.com/600x450/0b2a35/f5c542?text=Office+Cabin'">
+          <div class="overlay">
+            <h3>Executive Site Office</h3>
+            <p>30' × 10' · Navi Mumbai</p>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+        </div>
+
+        <!-- 2. Bunkhouse -->
+        <div class="gallery-item" data-category="bunkhouse">
+          <span class="category-tag">Bunkhouse</span>
+          <img src="gallery/Bunkhouse.jpg" alt="Multi-Bed Staff Bunkhouse" onerror="this.src='https://via.placeholder.com/600x450/1d5366/f5c542?text=Bunkhouse'">
+          <div class="overlay">
+            <h3>Multi-Bed Bunkhouse</h3>
+            <p>40' × 10' · Taloja MIDC</p>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+        </div>
+
+        <!-- 3. Cafe Cabin -->
+        <div class="gallery-item" data-category="cafe">
+          <span class="category-tag">Cafe &amp; Shop</span>
+          <img src="gallery/cafe.jpg" alt="Portable Cafe and Shop Cabin" onerror="this.src='https://via.placeholder.com/600x450/0b2a35/f5c542?text=Cafe+Cabin'">
+          <div class="overlay">
+            <h3>Portable Cafe &amp; Shop</h3>
+            <p>20' × 10' · Thane</p>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+        </div>
+
+        <!-- 4. Farm House -->
+        <div class="gallery-item" data-category="farmhouse">
+          <span class="category-tag">Farm House</span>
+          <img src="gallery/farmhouse1.jpg" alt="Farm House Cabin" onerror="this.src='https://via.placeholder.com/600x450/1d5366/f5c542?text=Farm+House'">
+          <div class="overlay">
+            <h3>Farm House Cabin</h3>
+            <p>Custom · Raigad</p>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+        </div>
+
+        <!-- 5. Security Cabin -->
+        <div class="gallery-item" data-category="security">
+          <span class="category-tag">Security</span>
+          <img src="gallery/security1.jpg" alt="Driving Security Cabin" onerror="this.src='https://via.placeholder.com/600x450/0b2a35/f5c542?text=Security+Cabin'">
+          <div class="overlay">
+            <h3>Driving / Security Cabin</h3>
+            <p>10' × 10' · Thane</p>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+        </div>
+
+        <!-- 6. Container -->
+        <div class="gallery-item" data-category="container">
+          <span class="category-tag">Container</span>
+          <img src="gallery/container1.jpg" alt="Modified Shipping Container" onerror="this.src='https://via.placeholder.com/600x450/1d5366/f5c542?text=Container'">
+          <div class="overlay">
+            <h3>Modified Container Office</h3>
+            <p>40' × 8' · Raigad</p>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+        </div>
+
+        <!-- 7. Office Cabin 2 -->
+        <div class="gallery-item" data-category="office">
+          <span class="category-tag">Office Cabin</span>
+          <img src="gallery/office2.jpg" alt="Modular Office Cabin" onerror="this.src='https://via.placeholder.com/600x450/0b2a35/f5c542?text=Office+Cabin+2'">
+          <div class="overlay">
+            <h3>Modular Office Cabin</h3>
+            <p>20' × 10' · Pune</p>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+        </div>
+
+        <!-- 8. Bunkhouse 2 -->
+        <div class="gallery-item" data-category="bunkhouse">
+          <span class="category-tag">Bunkhouse</span>
+          <img src="gallery/Bunkhouse1.jpg" alt="Site Bunkhouse Accommodation" onerror="this.src='https://via.placeholder.com/600x450/1d5366/f5c542?text=Bunkhouse+2'">
+          <div class="overlay">
+            <h3>Site Accommodation</h3>
+            <p>30' × 10' · Ambernath</p>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+        </div>
+
+        <!-- 9. Cafe Cabin 2 -->
+        <div class="gallery-item" data-category="cafe">
+          <span class="category-tag">Cafe &amp; Shop</span>
+          <img src="gallery/shop.jpg" alt="Portable Food Stall Cabin" onerror="this.src='https://via.placeholder.com/600x450/0b2a35/f5c542?text=Cafe+Cabin+2'">
+          <div class="overlay">
+            <h3>Food Stall Cabin</h3>
+            <p>15' × 10' · Kalyan</p>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+        </div>
+
+        <!-- 10. Farm House 2 -->
+        <div class="gallery-item" data-category="farmhouse">
+          <span class="category-tag">Farm House</span>
+          <img src="gallery/FarmHouse.jpg" alt="Weekend Farm House Cabin" onerror="this.src='https://via.placeholder.com/600x450/1d5366/f5c542?text=Farm+House+2'">
+          <div class="overlay">
+            <h3>Weekend Farm Cabin</h3>
+            <p>Custom · Karjat</p>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+        </div>
+
+        <!-- 11. Security Cabin 2 -->
+        <div class="gallery-item" data-category="security">
+          <span class="category-tag">Security</span>
+          <img src="gallery/security.jpg" alt="Gate Security Checkpost" onerror="this.src='https://via.placeholder.com/600x450/0b2a35/f5c542?text=Security+Cabin+2'">
+          <div class="overlay">
+            <h3>Gate Security Checkpost</h3>
+            <p>8' × 8' · Navi Mumbai</p>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+        </div>
+
+        <!-- 12. Container 2 -->
+        <div class="gallery-item" data-category="container">
+          <span class="category-tag">Container</span>
+          <img src="gallery/container.jpg" alt="Storage Shipping Container" onerror="this.src='https://via.placeholder.com/600x450/1d5366/f5c542?text=Container+2'">
+          <div class="overlay">
+            <h3>Storage Container</h3>
+            <p>20' × 8' · Bhiwandi</p>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+        </div>
+
+      </div>
+
+      <!-- No Results Message -->
+      <div class="no-results" id="noResults">
+        <i class="fas fa-search"></i>
+        <p>No images found for this category.</p>
+      </div>
+
+      <!-- CTA Strip -->
       <div class="cta-strip">
         <div class="info">
           <span>
@@ -1099,10 +1187,28 @@
           <span><i class="fas fa-calendar-check"></i> Yard Visit: Kalyan Phata, Thane</span>
           <span><i class="fas fa-clock"></i> Open Daily 9:00 AM – 10:00 PM</span>
         </div>
-        <a href="contact.html" class="btn"><i class="fas fa-paper-plane"></i> Start Your Project</a>
+        <a href="contact.html" class="btn"><i class="fas fa-paper-plane"></i> Request a Quote</a>
       </div>
+
     </div>
   </section>
+
+  <!-- ===== LIGHTBOX MODAL ===== -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+      <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <img src="" alt="" id="lightboxImg" />
+      <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+  </div>
 
   <!-- ===== FOOTER ===== -->
   <footer class="footer">
@@ -1123,8 +1229,8 @@
             <li><i class="fas fa-chevron-right"></i> <a href="index.html">Home</a></li>
             <li><i class="fas fa-chevron-right"></i> <a href="aboutus.html">About Company</a></li>
             <li><i class="fas fa-chevron-right"></i> <a href="project.html">Project Gallery</a></li>
-            <li><i class="fas fa-chevron-right"></i> <a href="project.html">Case Studies</a></li>
-            <li><i class="fas fa-chevron-right"></i> <a href="#">Buyer FAQs</a></li>
+            <li><i class="fas fa-chevron-right"></i> <a href="gallery.html">Photo Gallery</a></li>
+            <li><i class="fas fa-chevron-right"></i> <a href="faq.html">Buyer FAQs</a></li>
             <li><i class="fas fa-chevron-right"></i> <a href="contact.html">Get a Quote</a></li>
           </ul>
         </div>
@@ -1161,9 +1267,10 @@
   </footer>
 
   <!-- ========================================
-       JAVASCRIPT - MOBILE MENU TOGGLE
+       JAVASCRIPT
   ======================================== -->
   <script>
+    /* ===== MOBILE MENU TOGGLE ===== */
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
 
@@ -1172,7 +1279,6 @@
       navLinks.classList.toggle('open');
     });
 
-    // Close menu when a link is clicked
     document.querySelectorAll('.nav-links a').forEach(link => {
       link.addEventListener('click', () => {
         hamburger.classList.remove('active');
@@ -1180,13 +1286,124 @@
       });
     });
 
-    // Close menu when clicking outside
     document.addEventListener('click', function(event) {
       const isClickInside = event.target.closest('.navbar');
       if (!isClickInside) {
         hamburger.classList.remove('active');
         navLinks.classList.remove('open');
       }
+    });
+
+    /* ===== GALLERY FILTER ===== */
+    const filterChips = document.querySelectorAll('.filter-chip');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const noResults = document.getElementById('noResults');
+
+    filterChips.forEach(chip => {
+      chip.addEventListener('click', function() {
+        // Remove active class from all chips
+        filterChips.forEach(c => c.classList.remove('active'));
+        // Add active to clicked chip
+        this.classList.add('active');
+
+        const filter = this.getAttribute('data-filter');
+        let visibleCount = 0;
+
+        galleryItems.forEach(item => {
+          const category = item.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            item.style.display = 'block';
+            item.style.animation = 'fadeInUp 0.4s ease forwards';
+            visibleCount++;
+          } else {
+            item.style.display = 'none';
+          }
+        });
+
+        // Show/hide no results message
+        if (visibleCount === 0) {
+          noResults.classList.add('show');
+        } else {
+          noResults.classList.remove('show');
+        }
+      });
+    });
+
+    /* ===== LIGHTBOX ===== */
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
+
+    let currentIndex = 0;
+    let visibleItems = [];
+
+    function openLightbox(index) {
+      visibleItems = Array.from(galleryItems).filter(item => item.style.display !== 'none');
+      currentIndex = index;
+      updateLightbox();
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function updateLightbox() {
+      const item = visibleItems[currentIndex];
+      if (!item) return;
+
+      const img = item.querySelector('img');
+      const title = item.querySelector('.overlay h3');
+      const location = item.querySelector('.overlay p');
+
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightboxCaption.textContent = (title ? title.textContent : '') + (location ? ' · ' + location.textContent : '');
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % visibleItems.length;
+      updateLightbox();
+    }
+
+    function prevImage() {
+      currentIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length;
+      updateLightbox();
+    }
+
+    // Click on gallery item to open lightbox
+    galleryItems.forEach(item => {
+      item.addEventListener('click', function() {
+        const visible = Array.from(galleryItems).filter(i => i.style.display !== 'none');
+        const index = visible.indexOf(this);
+        openLightbox(index);
+      });
+    });
+
+    // Lightbox controls
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxNext.addEventListener('click', nextImage);
+    lightboxPrev.addEventListener('click', prevImage);
+
+    // Close lightbox when clicking outside the image
+    lightbox.addEventListener('click', function(e) {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      if (!lightbox.classList.contains('active')) return;
+
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') nextImage();
+      if (e.key === 'ArrowLeft') prevImage();
     });
   </script>
 
